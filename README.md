@@ -1,52 +1,59 @@
-# kiwayu — World
+# Portfolio
 
-Personal portfolio homepage styled after [azuki.com/world](https://www.azuki.com/world):
-a full-viewport grid of vertical panels, one per project. The grid idles in
-grayscale — hovering a panel brings it alive in full colour and reveals its title bar.
+A personal portfolio homepage: a full-viewport grid of vertical panels, one per
+project. The grid idles in grayscale; hovering a panel brings it to full colour
+and reveals its title bar.
 
-Built with **Next.js 16 · TypeScript · Tailwind CSS v4**.
+Built with Next.js 16, TypeScript, and Tailwind CSS v4.
 
-## Run
+## Getting started
 
 ```bash
 npm install
-npm run dev   # http://localhost:3000
+npm run dev
 ```
 
-## Swap in a real project
+Open http://localhost:3000.
 
-Everything on the homepage is driven by one file: [`src/data/projects.ts`](src/data/projects.ts).
-Each entry controls one panel (left → right):
+## Editing projects
+
+All homepage content is driven by a single file: `src/data/projects.ts`. Each
+entry renders one panel, left to right:
 
 ```ts
 {
   slug: "my-project",
-  title: "My Project",          // big title in the reveal bar
-  tagline: "One-line pitch",    // small caps line above the title
+  title: "My Project",        // title shown in the reveal bar
+  tagline: "One-line pitch",  // small line above the title
   href: "https://github.com/kiwayu/my-project",
-  isNew: true,                  // optional yellow NEW tag
-  artWord: "WORD",              // giant outlined word in the artwork
+  isNew: true,                // optional "new" tag
+  artWord: "WORD",            // large outlined word in the artwork
   art: { from, via, to, accent, pattern }, // generated placeholder art
-  imageSrc: "/art/my-project.jpg", // optional — replaces generated art
+  imageSrc: "/art/my-project.jpg",         // optional, replaces generated art
 }
 ```
 
-To use real artwork, drop an image in `public/art/` and set `imageSrc`.
-No component changes needed.
+To use real artwork, drop an image in `public/art/` and set `imageSrc`. No
+component changes are needed.
 
-## Where things live
+## Project structure
 
-| File | Purpose |
+| Path | Purpose |
 | --- | --- |
-| `src/data/projects.ts` | Panel content (edit this to swap projects) |
-| `src/components/PanelGrid.tsx` | Hover state orchestration |
-| `src/components/Panel.tsx` | One panel + title-bar reveal |
+| `src/data/projects.ts` | Panel content |
+| `src/components/PanelGrid.tsx` | Hover-state orchestration |
+| `src/components/Panel.tsx` | A single panel and its title-bar reveal |
 | `src/components/PanelArtwork.tsx` | Generated placeholder art |
-| `src/components/Nav.tsx` | Fixed nav + mobile hamburger |
-| `src/app/globals.css` | Theme tokens, easing curves, panel animations |
+| `src/components/Nav.tsx` | Fixed nav and mobile menu |
+| `src/app/globals.css` | Theme tokens and animations |
 
-## Behaviour notes
+## Behaviour
 
-- Desktop: hover or keyboard-focus a panel to activate it; click opens the repo.
-- Mobile: panels stack vertically, always in colour, titles visible; tap opens the repo.
-- `prefers-reduced-motion` disables the entrance stagger and all transitions.
+- Desktop: hover or keyboard-focus a panel to activate it; click opens the link.
+- Mobile: panels stack vertically, stay in colour, and show titles; tap opens
+  the link.
+- `prefers-reduced-motion` disables the entrance stagger and transitions.
+
+## License
+
+Released under the [MIT License](LICENSE).
