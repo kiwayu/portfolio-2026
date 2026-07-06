@@ -6,7 +6,7 @@
  * The STACK dropdown in the nav deep-links to each skill group.
  */
 
-export interface CvExperience {
+interface CvExperience {
   company: string;
   role: string;
   period: string;
@@ -14,14 +14,14 @@ export interface CvExperience {
   highlights: string[];
 }
 
-export interface CvEducation {
+interface CvEducation {
   school: string;
   qualification: string;
   period: string;
   details: string[];
 }
 
-export interface CvSkillGroup {
+interface CvSkillGroup {
   /** Anchor id — the nav links to /about#skills-<id> */
   id: string;
   label: string;
