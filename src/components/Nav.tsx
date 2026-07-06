@@ -5,7 +5,7 @@ import { useState } from "react";
 import { connect, navItems, type NavLink } from "@/data/nav";
 
 const desktopLinkClass =
-  "flex items-center gap-1.5 text-[13px] font-semibold tracking-[0.18em] text-white/90 transition-colors duration-200 [text-shadow:0_1px_8px_rgb(0_0_0/0.8)] hover:text-white";
+  "flex items-center gap-1.5 text-[13px] font-semibold tracking-[0.18em] text-white/90 transition-colors duration-300 ease-out [text-shadow:0_1px_8px_rgb(0_0_0/0.8)] hover:text-white";
 
 function Caret() {
   return (
@@ -105,7 +105,7 @@ export default function Nav() {
         {/* Right CTA (desktop) */}
         <a
           href={connect.href}
-          className="hidden text-[13px] font-semibold tracking-[0.18em] text-white/90 transition-colors duration-200 [text-shadow:0_1px_8px_rgb(0_0_0/0.8)] hover:text-white md:block"
+          className="hidden text-[13px] font-semibold tracking-[0.18em] text-white/90 transition-colors duration-300 ease-out [text-shadow:0_1px_8px_rgb(0_0_0/0.8)] hover:text-white md:block"
         >
           {connect.label}
         </a>

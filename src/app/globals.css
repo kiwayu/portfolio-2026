@@ -7,8 +7,8 @@
   --color-tag: #facc15;
   --font-display: var(--font-archivo-black);
   --font-sans: var(--font-archivo);
-  /* Accordion easing curves */
-  --ease-world: cubic-bezier(0.7, 0, 0.2, 1);
+  /* Accordion easing curves — ease-out so hover responds instantly, then settles */
+  --ease-world: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -50,7 +50,9 @@ html {
   opacity: 0;
   animation: panel-in 0.9s var(--ease-out-expo) both;
   animation-delay: calc(var(--i) * 110ms + 150ms);
-  transition: flex-grow 0.7s var(--ease-world);
+  transition: flex-grow 1.05s var(--ease-world);
+  /* isolate per-panel repaints while flex-grow animates layout */
+  contain: layout paint;
 }
 
 @keyframes panel-in {
@@ -70,8 +72,8 @@ html {
   inset: 0;
   filter: grayscale(1) brightness(0.45);
   transition:
-    filter 0.55s var(--ease-world),
-    transform 0.9s var(--ease-world);
+    filter 0.85s var(--ease-world),
+    transform 1.15s var(--ease-world);
   will-change: filter, transform;
 }
 
@@ -92,7 +94,8 @@ html {
   z-index: 10;
   background: #0a0a0a;
   transform: translateY(102%);
-  transition: transform 0.6s var(--ease-world);
+  transition: transform 0.65s var(--ease-world);
+  will-change: transform;
 }
 
 .world-panel[data-state="active"] .panel-title-bar,
@@ -105,20 +108,20 @@ html {
   opacity: 0;
   transform: translateY(14px);
   transition:
-    opacity 0.45s var(--ease-out-expo),
-    transform 0.45s var(--ease-out-expo);
+    opacity 0.55s var(--ease-out-expo),
+    transform 0.55s var(--ease-out-expo);
 }
 
 .world-panel[data-state="active"] .panel-title-bar .reveal,
 .world-panel:focus-visible .panel-title-bar .reveal {
   opacity: 1;
   transform: translateY(0);
-  transition-delay: 0.18s;
+  transition-delay: 0.22s;
 }
 
 .world-panel[data-state="active"] .panel-title-bar .reveal:nth-child(2),
 .world-panel:focus-visible .panel-title-bar .reveal:nth-child(2) {
-  transition-delay: 0.26s;
+  transition-delay: 0.32s;
 }
 
 .world-panel:focus-visible {
@@ -175,8 +178,8 @@ html {
 
 .rise {
   opacity: 0;
-  animation: rise-in 0.8s var(--ease-out-expo) both;
-  animation-delay: calc(var(--i, 0) * 90ms + 100ms);
+  animation: rise-in 0.9s var(--ease-out-expo) both;
+  animation-delay: calc(var(--i, 0) * 100ms + 120ms);
 }
 
 @keyframes rise-in {
@@ -207,8 +210,10 @@ html {
   opacity: 0;
   pointer-events: none;
   transition:
-    opacity 0.3s var(--ease-out-expo),
-    transform 0.3s var(--ease-out-expo);
+    opacity 0.45s var(--ease-out-expo),
+    transform 0.45s var(--ease-out-expo);
+  /* linger before closing so the menu doesn't snap shut on cursor slips */
+  transition-delay: 120ms;
 }
 
 .nav-drop:hover .nav-drop-menu,
@@ -216,6 +221,7 @@ html {
   opacity: 1;
   pointer-events: auto;
   transform: translate(-50%, 0);
+  transition-delay: 0ms;
 }
 
 .nav-drop-menu ul {
@@ -237,8 +243,8 @@ html {
   white-space: nowrap;
   color: rgb(255 255 255 / 0.75);
   transition:
-    color 0.2s,
-    background 0.2s;
+    color 0.35s ease-out,
+    background 0.35s ease-out;
 }
 
 .nav-drop-menu a:hover,
@@ -254,7 +260,7 @@ html {
 .project-card {
   display: block;
   background: #0f0f0f;
-  transition: transform 0.5s var(--ease-out-expo);
+  transition: transform 0.6s var(--ease-out-expo);
 }
 
 .project-card:hover {
@@ -266,8 +272,8 @@ html {
   inset: 0;
   filter: saturate(0.85) brightness(0.9);
   transition:
-    filter 0.5s var(--ease-world),
-    transform 0.8s var(--ease-world);
+    filter 0.65s var(--ease-world),
+    transform 0.95s var(--ease-world);
   will-change: transform;
 }
 

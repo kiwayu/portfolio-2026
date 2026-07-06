@@ -47,7 +47,7 @@ export default function AboutPage() {
               <li>
                 <a
                   href={`mailto:${cv.email}`}
-                  className="transition-colors duration-200 hover:text-white"
+                  className="transition-colors duration-300 ease-out hover:text-white"
                 >
                   {cv.email}
                 </a>
@@ -57,7 +57,7 @@ export default function AboutPage() {
                   href={cv.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="transition-colors duration-200 hover:text-white"
+                  className="transition-colors duration-300 ease-out hover:text-white"
                 >
                   GITHUB
                 </a>

@@ -44,7 +44,7 @@ export default function ProjectsPage() {
             href={cv.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block bg-brand px-6 py-3 font-display text-sm tracking-[0.2em] text-white transition-transform duration-300 hover:scale-[1.03]"
+            className="inline-block bg-brand px-6 py-3 font-display text-sm tracking-[0.2em] text-white transition-transform duration-500 ease-out hover:scale-[1.03]"
           >
             VIEW ALL ON GITHUB
           </a>
