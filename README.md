@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# kiwayu — World
 
-## Getting Started
+Personal portfolio homepage styled after [azuki.com/world](https://www.azuki.com/world):
+a full-viewport grid of vertical panels, one per project. The grid idles in
+grayscale — hovering a panel brings it alive in full colour and reveals its title bar.
 
-First, run the development server:
+Built with **Next.js 16 · TypeScript · Tailwind CSS v4**.
+
+## Run
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev   # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Swap in a real project
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Everything on the homepage is driven by one file: [`src/data/projects.ts`](src/data/projects.ts).
+Each entry controls one panel (left → right):
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```ts
+{
+  slug: "my-project",
+  title: "My Project",          // big title in the reveal bar
+  tagline: "One-line pitch",    // small caps line above the title
+  href: "https://github.com/kiwayu/my-project",
+  isNew: true,                  // optional yellow NEW tag
+  artWord: "WORD",              // giant outlined word in the artwork
+  art: { from, via, to, accent, pattern }, // generated placeholder art
+  imageSrc: "/art/my-project.jpg", // optional — replaces generated art
+}
+```
 
-## Learn More
+To use real artwork, drop an image in `public/art/` and set `imageSrc`.
+No component changes needed.
 
-To learn more about Next.js, take a look at the following resources:
+## Where things live
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| File | Purpose |
+| --- | --- |
+| `src/data/projects.ts` | Panel content (edit this to swap projects) |
+| `src/components/PanelGrid.tsx` | Hover state orchestration |
+| `src/components/Panel.tsx` | One panel + title-bar reveal |
+| `src/components/PanelArtwork.tsx` | Generated placeholder art |
+| `src/components/Nav.tsx` | Fixed nav + mobile hamburger |
+| `src/app/globals.css` | Theme tokens, easing curves, panel animations |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Behaviour notes
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Desktop: hover or keyboard-focus a panel to activate it; click opens the repo.
+- Mobile: panels stack vertically, always in colour, titles visible; tap opens the repo.
+- `prefers-reduced-motion` disables the entrance stagger and all transitions.
