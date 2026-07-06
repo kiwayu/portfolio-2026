@@ -7,6 +7,10 @@ export interface Project {
   tagline: string;
   /** Where the panel links to (GitHub repo for now) */
   href: string;
+  /** One-or-two sentence description shown on the /projects card */
+  description: string;
+  /** Tech stack chips shown on the /projects card */
+  tech: string[];
   /** Show the yellow "NEW" tag next to the title */
   isNew?: boolean;
   /** Giant background word rendered vertically inside the artwork */

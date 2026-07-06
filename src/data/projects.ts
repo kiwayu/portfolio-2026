@@ -1,12 +1,14 @@
 import type { Project } from "@/lib/types";
 
 /**
- * The panels on the homepage, left → right.
+ * The panels on the homepage (left → right) and the cards on /projects.
  *
  * To swap a panel for another project (or add real artwork later),
  * edit this array only — the layout, hover behaviour and animations
  * are all driven from it. Add `imageSrc: "/art/<file>.jpg"` to replace
  * the generated placeholder art with a real image.
+ *
+ * EDIT ME: `description` and `tech` appear on the /projects cards.
  */
 export const projects: Project[] = [
   {
@@ -14,6 +16,9 @@ export const projects: Project[] = [
     title: "Nudibranch ID",
     tagline: "Computer-vision species identification",
     href: "https://github.com/kiwayu/NudibranchID.io",
+    description:
+      "Identifies nudibranch species from reef photos with a computer-vision model.",
+    tech: ["Python", "Machine Learning", "Web"],
     isNew: true,
     artWord: "NUDI",
     art: {
@@ -29,6 +34,9 @@ export const projects: Project[] = [
     title: "Book App",
     tagline: "A library for everything you read",
     href: "https://github.com/kiwayu/book-app",
+    description:
+      "A personal library to log, rate and organise everything you read.",
+    tech: ["TypeScript", "React"],
     artWord: "BOOK",
     art: {
       from: "#2a1205",
@@ -43,6 +51,9 @@ export const projects: Project[] = [
     title: "Study App",
     tagline: "Lock in. Learn faster.",
     href: "https://github.com/kiwayu/study-app",
+    description:
+      "Focus sessions and study tools designed to help you learn faster.",
+    tech: ["TypeScript", "React"],
     artWord: "STUDY",
     art: {
       from: "#03200f",
@@ -57,6 +68,9 @@ export const projects: Project[] = [
     title: "Kurione",
     tagline: "Banking, reimagined",
     href: "https://github.com/kiwayu/Kurione-Banking",
+    description:
+      "A concept banking experience focused on clean flows and clarity.",
+    tech: ["TypeScript", "Next.js"],
     artWord: "BANK",
     art: {
       from: "#060c2b",
@@ -71,6 +85,9 @@ export const projects: Project[] = [
     title: "Analytics",
     tagline: "E-commerce data pipeline",
     href: "https://github.com/kiwayu/e-commerce-analytics-pipeline",
+    description:
+      "End-to-end e-commerce analytics: ingestion, transformation and reporting.",
+    tech: ["Python", "SQL"],
     artWord: "DATA",
     art: {
       from: "#26041d",

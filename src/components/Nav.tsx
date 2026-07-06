@@ -1,14 +1,11 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
+import { connect, navItems, type NavLink } from "@/data/nav";
 
-const links = [
-  { label: "ABOUT", href: "https://github.com/kiwayu", caret: false },
-  { label: "PROJECTS", href: "https://github.com/kiwayu?tab=repositories", caret: false },
-  { label: "STACK", href: "#", caret: true },
-  { label: "MORE", href: "#", caret: true },
-  { label: "SOCIALS", href: "#", caret: true },
-];
+const desktopLinkClass =
+  "flex items-center gap-1.5 text-[13px] font-semibold tracking-[0.18em] text-white/90 transition-colors duration-200 [text-shadow:0_1px_8px_rgb(0_0_0/0.8)] hover:text-white";
 
 function Caret() {
   return (
@@ -25,41 +22,92 @@ function Caret() {
   );
 }
 
+/** Internal routes get <Link> prefetching; external / mailto use <a>. */
+function NavAnchor({
+  link,
+  className,
+  onClick,
+}: {
+  link: NavLink;
+  className?: string;
+  onClick?: () => void;
+}) {
+  if (link.href.startsWith("/")) {
+    return (
+      <Link href={link.href} className={className} onClick={onClick}>
+        {link.label}
+      </Link>
+    );
+  }
+  return (
+    <a
+      href={link.href}
+      className={className}
+      onClick={onClick}
+      {...(link.external
+        ? { target: "_blank", rel: "noopener noreferrer" }
+        : {})}
+    >
+      {link.label}
+    </a>
+  );
+}
+
 export default function Nav() {
   const [open, setOpen] = useState(false);
+  const close = () => setOpen(false);
 
   return (
     <header className="fixed inset-x-0 top-0 z-50">
       <nav className="flex items-center justify-between px-4 py-4 md:px-6">
         {/* Logo block */}
-        <a
+        <Link
           href="/"
           className="bg-brand px-3 py-1.5 font-display text-sm tracking-widest text-white shadow-lg shadow-black/40"
         >
           KIWAYU
-        </a>
+        </Link>
 
         {/* Centre links (desktop) */}
         <ul className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-8 md:flex">
-          {links.map((link) => (
-            <li key={link.label}>
-              <a
-                href={link.href}
-                className="flex items-center gap-1.5 text-[13px] font-semibold tracking-[0.18em] text-white/90 transition-colors duration-200 [text-shadow:0_1px_8px_rgb(0_0_0/0.8)] hover:text-white"
-              >
-                {link.label}
-                {link.caret && <Caret />}
-              </a>
-            </li>
-          ))}
+          {navItems.map((item) =>
+            item.href ? (
+              <li key={item.label}>
+                <NavAnchor
+                  link={{ label: item.label, href: item.href }}
+                  className={desktopLinkClass}
+                />
+              </li>
+            ) : (
+              <li key={item.label} className="nav-drop">
+                <button
+                  type="button"
+                  aria-haspopup="true"
+                  className={desktopLinkClass}
+                >
+                  {item.label}
+                  <Caret />
+                </button>
+                <div className="nav-drop-menu">
+                  <ul>
+                    {item.children?.map((child) => (
+                      <li key={child.label}>
+                        <NavAnchor link={child} />
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </li>
+            ),
+          )}
         </ul>
 
         {/* Right CTA (desktop) */}
         <a
-          href="mailto:henry.collister@gmail.com"
+          href={connect.href}
           className="hidden text-[13px] font-semibold tracking-[0.18em] text-white/90 transition-colors duration-200 [text-shadow:0_1px_8px_rgb(0_0_0/0.8)] hover:text-white md:block"
         >
-          CONNECT
+          {connect.label}
         </a>
 
         {/* Hamburger (mobile) */}
@@ -82,28 +130,45 @@ export default function Nav() {
       {/* Mobile menu */}
       <div
         className={`overflow-hidden bg-ink/95 backdrop-blur-sm transition-[max-height] duration-500 md:hidden ${
-          open ? "max-h-96" : "max-h-0"
+          open ? "max-h-[32rem]" : "max-h-0"
         }`}
       >
         <ul className="flex flex-col gap-5 px-6 py-6">
-          {links.map((link) => (
-            <li key={link.label}>
-              <a
-                href={link.href}
-                onClick={() => setOpen(false)}
-                className="text-sm font-semibold tracking-[0.18em] text-white/90"
-              >
-                {link.label}
-              </a>
+          {navItems.map((item) => (
+            <li key={item.label}>
+              {item.href ? (
+                <NavAnchor
+                  link={{ label: item.label, href: item.href }}
+                  className="text-sm font-semibold tracking-[0.18em] text-white/90"
+                  onClick={close}
+                />
+              ) : (
+                <>
+                  <p className="text-[11px] font-semibold tracking-[0.22em] text-white/40">
+                    {item.label}
+                  </p>
+                  <ul className="mt-2 flex flex-col gap-2 pl-3">
+                    {item.children?.map((child) => (
+                      <li key={child.label}>
+                        <NavAnchor
+                          link={child}
+                          className="text-sm font-semibold tracking-[0.14em] text-white/80"
+                          onClick={close}
+                        />
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              )}
             </li>
           ))}
           <li>
             <a
-              href="mailto:henry.collister@gmail.com"
-              onClick={() => setOpen(false)}
+              href={connect.href}
+              onClick={close}
               className="text-sm font-semibold tracking-[0.18em] text-tag"
             >
-              CONNECT
+              {connect.label}
             </a>
           </li>
         </ul>

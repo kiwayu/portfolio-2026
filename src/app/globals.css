@@ -24,6 +24,12 @@ body {
   overflow-x: hidden;
 }
 
+/* Smooth anchor scrolling that clears the fixed header */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px;
+}
+
 ::selection {
   background: #c1121f;
   color: #fff;
@@ -164,8 +170,144 @@ body {
 }
 
 /* ------------------------------------------------------------------ */
+/* Sub-page entrance (staggered via --i, like the home panels)         */
+/* ------------------------------------------------------------------ */
+
+.rise {
+  opacity: 0;
+  animation: rise-in 0.8s var(--ease-out-expo) both;
+  animation-delay: calc(var(--i, 0) * 90ms + 100ms);
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Nav dropdowns (CSS hover / focus-within reveal)                     */
+/* ------------------------------------------------------------------ */
+
+.nav-drop {
+  position: relative;
+}
+
+.nav-drop-menu {
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  padding-top: 12px;
+  transform: translate(-50%, 8px);
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 0.3s var(--ease-out-expo),
+    transform 0.3s var(--ease-out-expo);
+}
+
+.nav-drop:hover .nav-drop-menu,
+.nav-drop:focus-within .nav-drop-menu {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, 0);
+}
+
+.nav-drop-menu ul {
+  min-width: 200px;
+  border: 1px solid rgb(255 255 255 / 0.1);
+  background: rgb(10 10 10 / 0.95);
+  backdrop-filter: blur(8px);
+  padding: 8px 0;
+  box-shadow: 0 18px 40px rgb(0 0 0 / 0.5);
+}
+
+.nav-drop-menu a {
+  display: block;
+  padding: 10px 18px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: rgb(255 255 255 / 0.75);
+  transition:
+    color 0.2s,
+    background 0.2s;
+}
+
+.nav-drop-menu a:hover,
+.nav-drop-menu a:focus-visible {
+  color: #fff;
+  background: rgb(255 255 255 / 0.06);
+}
+
+/* ------------------------------------------------------------------ */
+/* Project cards (/projects)                                           */
+/* ------------------------------------------------------------------ */
+
+.project-card {
+  display: block;
+  background: #0f0f0f;
+  transition: transform 0.5s var(--ease-out-expo);
+}
+
+.project-card:hover {
+  transform: translateY(-4px);
+}
+
+.project-card .panel-art {
+  position: absolute;
+  inset: 0;
+  filter: saturate(0.85) brightness(0.9);
+  transition:
+    filter 0.5s var(--ease-world),
+    transform 0.8s var(--ease-world);
+  will-change: transform;
+}
+
+.project-card:hover .panel-art,
+.project-card:focus-visible .panel-art {
+  filter: none;
+  transform: scale(1.05);
+}
+
+.project-card:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: -3px;
+}
+
+.project-card .art-word {
+  font-size: clamp(3rem, 6vw, 5rem);
+}
+
+/* ------------------------------------------------------------------ */
 /* Reduced motion                                                      */
 /* ------------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .rise {
+    animation: none;
+    opacity: 1;
+  }
+  .nav-drop-menu,
+  .nav-drop-menu a,
+  .project-card,
+  .project-card .panel-art {
+    transition: none;
+  }
+  .project-card:hover .panel-art {
+    transform: none;
+  }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .world-panel {
