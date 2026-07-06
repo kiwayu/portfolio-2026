@@ -5,7 +5,7 @@ import type { Project } from "@/lib/types";
 import Panel from "./Panel";
 
 /**
- * Azuki-world style panel accordion.
+ * Full-viewport panel accordion.
  *
  * Idle state: every panel is desaturated and dimmed.
  * The hovered / focused panel comes alive in full colour, grows slightly

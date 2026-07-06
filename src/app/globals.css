@@ -7,7 +7,7 @@
   --color-tag: #facc15;
   --font-display: var(--font-archivo-black);
   --font-sans: var(--font-archivo);
-  /* Azuki-style accordion easing */
+  /* Accordion easing curves */
   --ease-world: cubic-bezier(0.7, 0, 0.2, 1);
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
