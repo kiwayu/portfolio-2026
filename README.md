@@ -1,8 +1,4 @@
-# kiwayu — World
-
-Personal portfolio homepage styled after [azuki.com/world](https://www.azuki.com/world):
-a full-viewport grid of vertical panels, one per project. The grid idles in
-grayscale — hovering a panel brings it alive in full colour and reveals its title bar.
+# kiwayu
 
 Built with **Next.js 16 · TypeScript · Tailwind CSS v4**.
 
