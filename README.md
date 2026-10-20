@@ -2,7 +2,7 @@
 
 Personal portfolio for Henry (kiwayu): a full-viewport panel accordion on the
 homepage, an About page that renders a CV, and a GitHub projects page. The
-grid idles in grayscale — hovering a panel brings it alive in full colour and
+grid idles in grayscale, and hovering a panel brings it alive in full colour and
 reveals its title bar.
 
 Built with **Next.js 16 · TypeScript · Tailwind CSS v4**. Every page is
@@ -29,13 +29,13 @@ entries or images requires no component changes.
 
 | Route | Purpose |
 | --- | --- |
-| `/` | Panel accordion — one panel per project, linking to its GitHub repo |
+| `/` | Panel accordion, one panel per project, linking to its GitHub repo |
 | `/about` | CV: experience, education, skills (anchored for nav deep links), contact |
 | `/projects` | Card grid of GitHub projects with descriptions and tech stacks |
 
 ## Editing content
 
-All copy lives in three data files — edit these, never the components:
+All copy lives in three data files. Edit these, never the components:
 
 | File | Controls |
 | --- | --- |
@@ -46,7 +46,7 @@ All copy lives in three data files — edit these, never the components:
 ### Swapping in real images
 
 - **Project artwork**: drop an image in `public/art/` and set `imageSrc` on the
-  project entry — it replaces the generated placeholder art on both the
+  project entry, and it replaces the generated placeholder art on both the
   homepage panel and the `/projects` card.
 - **Portrait**: drop an image in `public/` and set `portraitSrc` in
   `src/data/cv.ts`.
